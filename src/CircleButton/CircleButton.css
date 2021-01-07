@@ -1,50 +1,22 @@
-.Noteful-form {
-    background-color: #1d3656;
-    color: #dedede;
-    padding: 16px;
-    max-width: 332px;
-}
-
-.Noteful-form label {
-    display: block;
-    font-size: 16px;
-    padding-bottom: 8px;
-}
-
-.Noteful-form input,
-.Noteful-form textarea,
-.Noteful-form select {
-    font-size: 14px;
-    padding: 8px;
-    width: 300px;
-}
-
-.Noteful-form select {
-    height: 33px;
-}
-
-.Noteful-form>.field {
-    margin-bottom: 16px;
-}
-
-.Noteful-form>.buttons {
-    margin-top: 26px;
-}
-
-.Noteful-form button {
-    background-color: #010d1e;
-    border-radius: 4px;
+.NavCircleButton {
+    background-color: #cacaca;
+    border-radius: 30px;
     border: 0;
-    color: #cacaca;
+    color: black;
     display: block;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
+    height: 60px;
     padding: 8px;
     text-align: center;
     text-decoration: none;
+    width: 60px;
 }
 
-.Noteful-form button[type="submit"]:hover {
-    background-color: #29862e;
-    color: white;
+a.NavCircleButton {
+    padding: 16px 8px 8px;
+}
+
+.NavCircleButton:hover {
+    cursor: pointer;
 }
