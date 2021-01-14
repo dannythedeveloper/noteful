@@ -8,7 +8,7 @@ import './Note.css'
 
 export default class Note extends React.Component {
   static defaultProps = {
-    onDeleteNotes: () => {}
+    onDeleteNote: () => {}
   }
 
   static contextType = ApiContext;
@@ -16,7 +16,7 @@ export default class Note extends React.Component {
   handleClickDelete = e => {
     e.preventDefault()
     const noteId = this.props.id
-
+    console.log(noteId)
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
       headers: {

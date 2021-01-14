@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Route, Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
@@ -7,6 +8,7 @@ import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
+import NotefulError from '../NotefulError'
 import ApiContext from '../ApiContext';
 import config from '../config';
 import './App.css';
@@ -96,6 +98,14 @@ class App extends Component {
                     path="/note/:noteId"
                     component={NotePageMain} 
                 />
+                <Route
+                    path="/add-folder"
+                    component={AddFolder}
+                />
+                <Route  
+                    path="/add-note"
+                    component={AddNote}
+                />
             </>
         );
     }
@@ -112,18 +122,24 @@ class App extends Component {
         return (
             <ApiContext.Provider value={value}>
                 <div className="App">
+                    <NotefulError>
                     <nav className="App__nav">{this.renderNavRoutes()}</nav>
+                    </NotefulError>
                     <header className="App__header">
                         <h1>
                             <Link to="/">Noteful</Link>{' '}
                             <FontAwesomeIcon icon="check-double" />
                         </h1>
                     </header>
+                    <NotefulError>
                     <main className="App__main">{this.renderMainRoutes()}</main>
+                    </NotefulError>
+
                 </div>
             </ApiContext.Provider>
         );
     }
 }
+
 
 export default App;

@@ -1,10 +1,22 @@
 import React, { Component } from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
 import ApiContext from '../ApiContext'
+import ValidationError from '../ValidationError'
 import config from '../config'
 import './AddNote.css'
 
 export default class AddNote extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            content: '',
+            folderId: '',
+            modified: '',
+            touched: false
+        }
+    }
+
     static defaultProps = {
         history: {
             push: () => {}
@@ -13,12 +25,35 @@ export default class AddNote extends Component {
 
     static contextType = ApiContext
 
+    updateForm = (event) => {
+        this.setState({ [event.target.name] : event.target.value, touched: true })
+    }
+    
+    validateName = () => {
+        const name = this.state.name.trim();
+        if (name.length === 0) {
+            return 'Name is required';
+        } 
+    }
+
+    validateContent = () => {
+        if (this.state.content === '') {
+            return true;
+        } 
+    }
+
+    validateFolder = () => {
+        if (this.state.folderId  === '') {
+            return true;
+        } 
+    }
+
     handleSubmit = e => {
         e.preventDefault()
         const newNote = {
-            name: e.target['note-name'].value,
-            content: e.target['note-content'].value,
-            folderId: e.target['note-folder-id'].value,
+            name: this.state.name,
+            content: this.state.content,
+            folderId: this.state.folderId,
             modified: new Date()    
         }
         fetch(`${config.API_ENDPOINT}/notes`, {
@@ -35,8 +70,8 @@ export default class AddNote extends Component {
             return res.json()
         })
         .then(note => {
-            this.context.AddNote(note)
-            this.props.history.push(`/folder/${note.id}`)
+            this.context.addNote(note)
+            this.props.history.push(`/folder/${note.folderId}`)
         })
         .catch(error => {
             console.error({ error })
@@ -44,7 +79,9 @@ export default class AddNote extends Component {
     }
 
     render() {
-        const { folders } = this.props
+        const { folders } = this.context;
+        const nameError = this.validateName();
+
         return (
             <section className='AddNote'>
                 <h2>Create a note</h2>
@@ -53,18 +90,36 @@ export default class AddNote extends Component {
                         <label htmlFor='note-name-input'>
                             Name
                         </label>
-                        <input type='text' id='note-name-input' name='note-name' />
+                        <input 
+                            type='text'
+                            id='note-name-input' 
+                            name='name' 
+                            onChange={(e) => this.updateForm(e)}
+                        />
+                        {this.state.touched && (
+                            <ValidationError message={nameError} />
+                        )}
                     </div>
                     <div className='field'>
                         <label htmlFor='note-content-input'>
                             Content
                         </label>
-                        <input type='text' id='note-content-input' name='note-content' />
-                    </div><div className='field'>
+                        <input 
+                            type='text' 
+                            id='note-content-input' 
+                            name='content' 
+                            onChange={(e) => this.updateForm(e)} 
+                        />
+                    </div>
+                    <div className='field'>
                         <label htmlFor='note-folder-select'>
                             Folder
                         </label>
-                        <select id='note-folder-select' name='note-folder-id'>
+                        <select 
+                            id='note-folder-select' 
+                            name='folderId'
+                            onChange={(e) => this.updateForm(e)}
+                        >
                             <option value={null}>...</option>
                             {folders.map(folder =>
                                 <option key={folder.id} value={folder.id}>{folder.name}</option>
@@ -72,7 +127,14 @@ export default class AddNote extends Component {
                         </select>
                     </div>
                     <div className='buttons'>
-                        <button type='submit'>
+                        <button 
+                            type='submit'
+                            disabled={
+                                this.validateName() ||
+                                this.validateContent() ||
+                                this.validateFolder()
+                            }
+                        >
                             Add note
                         </button>
                     </div>

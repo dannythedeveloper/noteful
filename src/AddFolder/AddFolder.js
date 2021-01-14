@@ -1,22 +1,45 @@
 import React, { Component } from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
 import ApiContext from '../ApiContext'
+import ValidationError from '../ValidationError'
 import config from '../config'
 import './AddFolder.css'
 
 export default class AddFolder extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            touched: false
+        }
+    }
+   
     static defaultProps = {
         history: {
             push: () => {}
         }
     }
-
+    
     static contextType = ApiContext
+
+    updateFolderName = (event) => {
+        this.setState ({
+            name: event.target.value,
+            touched: true
+        })
+    }
+
+    validateFolderName = () => {
+        const name = this.state.name.trim();
+        if (name.length === 0) {
+            return 'Folder name is required';
+        } 
+    }
 
     handleSubmit = e => {
         e.preventDefault()
         const folder = {
-            name: e.target['folder-name'].value
+            name: this.state.name
         }
         fetch(`${config.API_ENDPOINT}/folders`, {
             method: 'POST',
@@ -49,10 +72,23 @@ export default class AddFolder extends Component {
                         <label htmlFor='folder-name-input'>
                             Name
                         </label>
-                        <input type='text' id='folder-name-input' name='folder-name' />
+                        <input 
+                            type='text' 
+                            id='folder-name-input' 
+                            name='folder-name' 
+                            onChange={e => this.updateFolderName(e)}
+                        />
+                        {this.state.touched && (
+                            <ValidationError message={this.validateFolderName()} />
+                        )}
                     </div>
                     <div className='buttons'>
-                        <button type='submit'>
+                        <button 
+                            type='submit'
+                            disabled= {
+                                this.validateFolderName()
+                            }
+                        >
                             Add folder
                         </button>
                     </div>
