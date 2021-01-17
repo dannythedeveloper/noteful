@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NotefulForm from '../NotefulForm/NotefulForm';
 import ApiContext from '../ApiContext';
 import PropTypes from 'prop-types';
-import ValidationError from '../ValidationError';
+import ValidationError from '../ValidationError/ValidationError';
 import config from '../config';
 import './AddNote.css';
 
@@ -16,38 +16,38 @@ export default class AddNote extends Component {
             modified: '',
             touched: false
         }
-    }
+    };
 
     static defaultProps = {
         history: {
             push: () => {}
         }
-    }
+    };
 
     static contextType = ApiContext
 
     updateForm = (event) => {
         this.setState({ [event.target.name] : event.target.value, touched: true })
-    }
+    };
     
     validateName = () => {
         const name = this.state.name.trim();
         if (name.length === 0) {
             return 'Name is required';
         } 
-    }
+    };
 
     validateContent = () => {
         if (this.state.content === '') {
             return true;
         } 
-    }
+    };
 
     validateFolder = () => {
         if (this.state.folderId  === '') {
             return true;
         } 
-    }
+    };
 
     handleSubmit = e => {
         e.preventDefault()
@@ -77,7 +77,7 @@ export default class AddNote extends Component {
         .catch(error => {
             console.error({ error })
         })
-    }
+    };
 
     render() {
         const { folders } = this.context;
@@ -151,4 +151,4 @@ AddNote.propTypes = {
     folderId: PropTypes.string,
     modified: PropTypes.string,
     touched: PropTypes.bool
-}
+};

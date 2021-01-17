@@ -39,7 +39,7 @@ class App extends Component {
             .catch(error => {
                 console.error({ error })
             })
-    }
+    };
 
     handleAddFolder = folder => {
         this.setState({
@@ -48,7 +48,7 @@ class App extends Component {
                 folder
             ]
         })
-    }
+    };
 
     handleAddNote = note => {
         this.setState({
@@ -57,13 +57,13 @@ class App extends Component {
                 note
             ]
         })
-    }
+    };
 
     handleDeleteNote = noteId => {
         this.setState({
             notes: this.state.notes.filter(note => note.id !== noteId)
         })
-    }
+    };
 
     renderNavRoutes() {
         return (
@@ -81,7 +81,7 @@ class App extends Component {
                 <Route path="/add-note" component={NotePageNav} />
             </>
         );
-    }
+    };
 
     renderMainRoutes() {
         return (
@@ -108,7 +108,7 @@ class App extends Component {
                 />
             </>
         );
-    }
+    };
 
     render() {
         const value = {
@@ -117,7 +117,7 @@ class App extends Component {
             addFolder: this.handleAddFolder,
             addNote: this.handleAddNote,
             deleteNote: this.handleDeleteNote
-        }
+        };
 
         return (
             <ApiContext.Provider value={value}>
@@ -139,11 +139,11 @@ class App extends Component {
             </ApiContext.Provider>
         );
     }
-}
+};
 
 App.propTypes = {
     folders: PropTypes.array,
     notes: PropTypes.array
-}
+};
 
 export default App;
