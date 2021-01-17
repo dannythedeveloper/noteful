@@ -8,7 +8,7 @@ import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
-import NotefulError from '../NotefulError'
+import NotefulError from '../NotefulError/NotefulError';
 import ApiContext from '../ApiContext';
 import config from '../config';
 import './App.css';
