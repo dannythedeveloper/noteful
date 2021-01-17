@@ -141,5 +141,9 @@ class App extends Component {
     }
 }
 
+App.propTypes = {
+    folders: PropTypes.array,
+    notes: PropTypes.array
+}
 
 export default App;

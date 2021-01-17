@@ -1,13 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { format } from 'date-fns'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ApiContext from '../ApiContext'
-import config from '../config'
-import './Note.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
+import ApiContext from '../ApiContext';
+import config from '../config';
+import './Note.css';
 
 export default class Note extends React.Component {
   static defaultProps = {
+    modified: new Date(),
     onDeleteNote: () => {}
   }
 
@@ -16,7 +18,6 @@ export default class Note extends React.Component {
   handleClickDelete = e => {
     e.preventDefault()
     const noteId = this.props.id
-    console.log(noteId)
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
@@ -39,7 +40,8 @@ export default class Note extends React.Component {
   }
 
   render() {
-    const { name, id, modified } = this.props;
+    const { name, id, modified } = this.props
+
     return (
       <div className='Note'>
         <h2 className='Note__title'>
@@ -68,4 +70,9 @@ export default class Note extends React.Component {
       </div>
     )
   }
-}
+};
+
+Note.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+};

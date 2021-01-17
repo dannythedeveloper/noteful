@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import NotefulForm from '../NotefulForm/NotefulForm'
-import ApiContext from '../ApiContext'
-import ValidationError from '../ValidationError'
-import config from '../config'
-import './AddNote.css'
+import React, { Component } from 'react';
+import NotefulForm from '../NotefulForm/NotefulForm';
+import ApiContext from '../ApiContext';
+import PropTypes from 'prop-types';
+import ValidationError from '../ValidationError';
+import config from '../config';
+import './AddNote.css';
 
 export default class AddNote extends Component {
     constructor(props) {
@@ -142,4 +143,12 @@ export default class AddNote extends Component {
             </section>
         )
     }
+};
+
+AddNote.propTypes = {
+    name: PropTypes.string,
+    content: PropTypes.string,
+    folderId: PropTypes.string,
+    modified: PropTypes.string,
+    touched: PropTypes.bool
 }

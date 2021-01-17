@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import NotefulForm from '../NotefulForm/NotefulForm'
-import ApiContext from '../ApiContext'
-import ValidationError from '../ValidationError'
-import config from '../config'
-import './AddFolder.css'
+import React, { Component } from 'react';
+import NotefulForm from '../NotefulForm/NotefulForm';
+import ApiContext from '../ApiContext';
+import PropTypes from 'prop-types';
+import ValidationError from '../ValidationError';
+import config from '../config';
+import './AddFolder.css';
 
 export default class AddFolder extends Component {
     constructor(props) {
@@ -12,29 +13,29 @@ export default class AddFolder extends Component {
             name: '',
             touched: false
         }
-    }
+    };
    
     static defaultProps = {
         history: {
             push: () => {}
         }
-    }
+    };
     
-    static contextType = ApiContext
+    static contextType = ApiContext;
 
     updateFolderName = (event) => {
         this.setState ({
             name: event.target.value,
             touched: true
         })
-    }
+    };
 
     validateFolderName = () => {
         const name = this.state.name.trim();
         if (name.length === 0) {
             return 'Folder name is required';
         } 
-    }
+    };
 
     handleSubmit = e => {
         e.preventDefault()
@@ -61,7 +62,7 @@ export default class AddFolder extends Component {
         .catch(error => {
             console.error({ error })
         })
-    }
+    };
 
     render() {
         return (
@@ -96,4 +97,9 @@ export default class AddFolder extends Component {
             </section>
         )
     }
-}
+};
+
+AddFolder.propTypes = {
+    name: PropTypes.string,
+    history: PropTypes.object.isRequired
+};
