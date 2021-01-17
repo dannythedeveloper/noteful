@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import NotefulForm from '../NotefulForm/NotefulForm';
 import ApiContext from '../ApiContext';
-import PropTypes from 'prop-types';
 import ValidationError from '../ValidationError/ValidationError';
 import config from '../config';
 import './AddNote.css';
@@ -75,7 +74,7 @@ export default class AddNote extends Component {
             this.props.history.push(`/folder/${note.folderId}`)
         })
         .catch(error => {
-            console.error({ error })
+            alert(`Something went wrong: ${error}. Please refresh the page.`)
         })
     };
 
@@ -143,12 +142,4 @@ export default class AddNote extends Component {
             </section>
         )
     }
-};
-
-AddNote.propTypes = {
-    name: PropTypes.string,
-    content: PropTypes.string,
-    folderId: PropTypes.string,
-    modified: PropTypes.string,
-    touched: PropTypes.bool
 };

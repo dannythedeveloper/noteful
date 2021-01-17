@@ -35,7 +35,7 @@ export default class Note extends React.Component {
       this.props.onDeleteNote(noteId)
     })
     .catch(error => {
-      console.error({ error })
+      alert(`Something went wrong: ${error}. Please refresh the page.`)
     })
   }
 
@@ -73,6 +73,11 @@ export default class Note extends React.Component {
 };
 
 Note.propTypes = {
+  noteId: PropTypes.number,
   name: PropTypes.string,
-  id: PropTypes.number,
+  id: PropTypes.string,
+  modified: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date)]), 
+  onDeleteNote: PropTypes.func
 };

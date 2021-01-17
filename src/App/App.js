@@ -138,7 +138,7 @@ class App extends Component {
                 </div>
             </ApiContext.Provider>
         );
-    }
+    };
 };
 
 App.propTypes = {
