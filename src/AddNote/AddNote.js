@@ -95,6 +95,7 @@ export default class AddNote extends Component {
                             id='note-name-input' 
                             name='name' 
                             onChange={(e) => this.updateForm(e)}
+                            required
                         />
                         {this.state.touched && (
                             <ValidationError message={nameError} />
@@ -109,6 +110,7 @@ export default class AddNote extends Component {
                             id='note-content-input' 
                             name='content' 
                             onChange={(e) => this.updateForm(e)} 
+                            required
                         />
                     </div>
                     <div className='field'>
@@ -119,8 +121,9 @@ export default class AddNote extends Component {
                             id='note-folder-select' 
                             name='folderId'
                             onChange={(e) => this.updateForm(e)}
+                            required
                         >
-                            <option value={null}>...</option>
+                            <option value=''>...</option>
                             {folders.map(folder =>
                                 <option key={folder.id} value={folder.id}>{folder.name}</option>
                             )}
@@ -129,11 +132,6 @@ export default class AddNote extends Component {
                     <div className='buttons'>
                         <button 
                             type='submit'
-                            disabled={
-                                this.validateName() ||
-                                this.validateContent() ||
-                                this.validateFolder()
-                            }
                         >
                             Add note
                         </button>

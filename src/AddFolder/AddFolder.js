@@ -78,6 +78,7 @@ export default class AddFolder extends Component {
                             id='folder-name-input' 
                             name='folder-name' 
                             onChange={e => this.updateFolderName(e)}
+                            required
                         />
                         {this.state.touched && (
                             <ValidationError message={this.validateFolderName()} />
